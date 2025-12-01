@@ -8,14 +8,15 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <header className="bg-[#0f0f11] text-white shadow-md border-b border-white/10">
       <nav className="flex justify-between items-center px-6 h-18">
-        <p className="text-lg font-semibold tracking-wide">
+        <Link href="/" className="text-lg font-semibold tracking-wide">
           Multi-Tenant Blog App
-        </p>
+        </Link>
 
         <div className="flex items-center gap-6">
           {/* ----- IF LOGGED OUT ----- */}
@@ -36,7 +37,8 @@ export default function Header() {
           {/* ----- IF LOGGED IN ----- */}
           <SignedIn>
             <div className="flex items-center gap-4">
-              <p className="text-sm opacity-70">Organizations</p>
+               <Link href="/dashboard" className="text-sm opacity-70">Dashboard</Link>
+              <Link href="/org" className="text-sm opacity-70">Organizations</Link>
               <OrganizationSwitcher
                 appearance={{
                   elements: {
@@ -44,6 +46,7 @@ export default function Header() {
                     trigger: "bg-white text-black px-2 py-1 rounded-md",
                   },
                 }}
+                afterSelectOrganizationUrl="/org/:slug"
               />
               <UserButton
                 appearance={{
