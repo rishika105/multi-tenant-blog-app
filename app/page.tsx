@@ -1,12 +1,13 @@
-import Image from "next/image";
-import Nav from "./components/nav";
-
 export default function Home() {
   return (
-    <div className="font-sans p-4 fixed top-0 overflow-auto">
-        <div className="flex p-8 justify-center items-center mt-16">
-          WELCOME TO MY MULTI-TENANT BLOG-APP
-        </div>
-    </div>
+    <main className="min-h-screen bg-[#0f0f11] text-white flex flex-col justify-center items-center px-4">
+      <div className="text-3xl font-semibold tracking-wide text-center">
+        WELCOME TO MY MULTI-TENANT BLOG APP
+      </div>
+
+      <p className="opacity-60 mt-4 text-center max-w-lg">
+        Create blogs, manage organizations, and collaborate seamlessly.
+      </p>
+    </main>
   );
 }
