@@ -21,7 +21,6 @@ export default function RootLayout({
           appearance={{
             theme: dark,
           }}
-          allowedRedirectOrigins={["*", "http://localhost:3000", "http://*.localhost:3000"]}
         >
           <Header />
           {children}
