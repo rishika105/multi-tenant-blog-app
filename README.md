@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# 📝 Multi-Tenant Blog Platform
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+A simple multi-tenant blog application built with **Next.js (TypeScript)**, **Drizzle ORM**, **Clerk**, and **PostgreSQL (Docker)**.
+Each organization has its own isolated blog space accessible via a **unique subdomain**.
+
+---
+
+## 🚀 Features
+
+* 🔐 **Authentication & Organizations** using Clerk
+* 🏢 Users can **create organizations**, and each organization becomes a **separate tenant**
+* 🌐 **Subdomain-based routing**
+
+  * Example:
+
+    * `localhost:3000` → landing
+    * `my-organization.localhost:3000` → blogs for *that* organization
+* 🗄️ **Drizzle ORM + PostgreSQL** for data storage
+* 🐳 Database containerized using **Docker**
+
+---
+
+## 🛠️ Tech Stack
+
+* **Next.js 15** (TypeScript, App Router)
+* **Clerk** (Auth + Organizations)
+* **Drizzle ORM**
+* **PostgreSQL**
+* **Docker**
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repo
+
+```sh
+git clone https://github.com/rishika105/multi-tenant-blog-app.git
+cd multi-tenant-blog-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Start PostgreSQL via Docker
 
-## Learn More
+Your `docker-compose.yml` should include PostgreSQL.
 
-To learn more about Next.js, take a look at the following resources:
+Run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```sh
+docker compose up -d
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Configure environment variables
 
-## Deploy on Vercel
+Create `.env.local`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+DATABASE_URL=postgres://postgres:password@localhost:5432/mydb
+CLERK_SECRET_KEY=your_key
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_key
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 5. Run Drizzle migrations
+
+```sh
+npm run db:push
+```
+
+(for drizzle studio)
+
+```sh
+npm run db:studio
+```
+
+### 6. Start the dev server
+
+```sh
+npm run dev
+```
+
+---
+
+
+## 🤝 Contributing
+
+Contributions are always welcome!
+If you find a bug, have an idea, or want to resolve something:
+
+1. **Open an Issue**
+
+   * Describe the problem clearly.
+   * Add screenshots or logs if possible.
+
+2. **Create a Pull Request**
+
+   * Fork the repository
+   * Create a new branch
+   * Make your changes with clear commit messages
+   * Open a PR explaining what you fixed or added
+
