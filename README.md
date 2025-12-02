@@ -10,13 +10,13 @@ Each organization has its own isolated blog space accessible via a **unique subd
 ## 🚀 Features
 
 * 🔐 **Authentication & Organizations** using Clerk
-* 🏢 Users can **create organizations**, and each organization becomes a **separate tenant**
+* 🏢 Users can **create organizations**, and each organization becomes a **separate tenant** for which we can create blogs for that organization.
 * 🌐 **Subdomain-based routing**
 
   * Example:
-
-    * `localhost:3000` → landing
-    * `my-organization.localhost:3000` → blogs for *that* organization
+    * `localhost:3000` → landing 
+    * `my-organization.localhost:3000` → shows blogs for *that* organization
+      
 * 🗄️ **Drizzle ORM + PostgreSQL** for data storage
 * 🐳 Database containerized using **Docker**
 
