@@ -2,47 +2,56 @@
 import * as React from "react";
 import { createBlog } from "./actions";
 import { useOrganization } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function OrgLandingPage() {
   const [blogContent, setBlogContent] = React.useState("");
   const [title, setTitle] = React.useState("");
-  const selectedOrg = useOrganization(); //retrives att of curr active org
+  const selectedOrg = useOrganization();
+  const router = useRouter();
 
-  if (!selectedOrg.organization?.id) return;
+  if (!selectedOrg.organization?.id) return null;
 
   const handleCreateBlog = async () => {
     await createBlog({
       body: blogContent.trim(),
       orgId: selectedOrg.organization?.id,
-      title: title,
+      title,
     });
+
+    // Redirect to blog listing of this org
+    //Ex: http://blogilite-1764436657.localhost:3000/
+    router.push(`http://${selectedOrg.organization?.slug}.localhost:3000/`);
   };
 
   return (
-    <div className="font-sans mt-10 overflow-hidden items-center justify-center flex flex-col gap-4">
-      <label htmlFor="title" className="text-left">
-        Title
-      </label>
-      <input
-        name="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="border-gray-700 border-2 rounded-md p-2"
-        placeholder="enter title"
-      />
-      <label htmlFor="blogContent" className="text-left">
-        Add Content
-      </label>
-      <textarea
-        value={blogContent}
-        name="blogContent"
-        onChange={(e) => setBlogContent(e.target.value)}
-        placeholder="Enter your content"
-        className="font-sans w-[50%] border-gray-700 border-2 p-3 rounded-md text-white"
-      ></textarea>
+    <div className="max-w-2xl mx-auto mt-20 p-8 bg-[#0f0f11] border border-white/10 rounded-xl shadow-lg text-white flex flex-col gap-5">
+
+      <h2 className="text-3xl font-bold mb-3">Create New Blog</h2>
+
+      <div className="flex flex-col gap-2">
+        <label className="opacity-80">Title</label>
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="bg-black/40 p-3 rounded-lg border border-white/20 focus:border-purple-500 outline-none"
+          placeholder="Enter blog title"
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label className="opacity-80">Content</label>
+        <textarea
+          value={blogContent}
+          onChange={(e) => setBlogContent(e.target.value)}
+          className="bg-black/40 p-3 rounded-lg border border-white/20 min-h-[150px] focus:border-purple-500 outline-none"
+          placeholder="Write your content here..."
+        />
+      </div>
+
       <button
-        className="border border-gray-600 p-3 bg-zinc-900 rounded-md w-fit"
         onClick={handleCreateBlog}
+        className="px-5 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition mt-2 w-fit"
       >
         Create Blog
       </button>
